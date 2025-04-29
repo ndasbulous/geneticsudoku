@@ -1,8 +1,10 @@
 package model
 
+import "github.com/google/uuid"
+
 // Population represents a collection of individuals.
 type Population struct {
-	ID             string
+	ID             uuid.UUID // Unique identifier for the population
 	Name           string
 	Individuals    []Individual
 	Generation     uint64     // The generation number of the population
