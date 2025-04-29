@@ -18,5 +18,6 @@ func main() {
 		fmt.Println(individual.Name)
 		fmt.Println(individual.Chromosome)
 		fmt.Println(individual.Fitness)
+		fmt.Println("")
 	}
 }
