@@ -12,29 +12,34 @@ func CalculateFitness(individual model.Individual) float64 {
 	// Example: Count the number of unique numbers in the individual's chromosome
 	i := 0
 	for i < 9 {
-		rowFitness := calculateRowOrColumnUniqueness(individual.Chromosome[i*9 : (i+1)*8])
-		println("Row fitness: ", rowFitness)
+		// rowFitness := calculateRowOrColumnUniqueness(individual.Chromosome[i*9 : (i+1)*8])
+		rowFitness := calculateRowOrColumnUniqueness(individual.Chromosome.Sequence[i])
 		fitness += rowFitness
+
+		// j := 0
+		// for j < 9{
+		// columnFitness := calculateRowOrColumnUniqueness(individual.Chromosome.Sequence[j])
+		// }
+
 		i++
 	}
 
 	i = 0
-	for i < 9 {
-		column := []uint8{
-			individual.Chromosome[i], individual.Chromosome[i+9], individual.Chromosome[i+18],
-			individual.Chromosome[i+27], individual.Chromosome[i+36], individual.Chromosome[i+45],
-			individual.Chromosome[i+54], individual.Chromosome[i+63], individual.Chromosome[i+72],
-		}
-		columnFitness := calculateRowOrColumnUniqueness(column)
-		println("Column fitness: ", columnFitness)
-		fitness += columnFitness
-		i++
-	}
+	// for i < 9 {
+	// 	column := []uint8{
+	// 		individual.Chromosome.Sequence[i], individual.Chromosome[i+9], individual.Chromosome[i+18],
+	// 		individual.Chromosome[i+27], individual.Chromosome[i+36], individual.Chromosome[i+45],
+	// 		individual.Chromosome[i+54], individual.Chromosome[i+63], individual.Chromosome[i+72],
+	// 	}
+	// 	columnFitness := calculateRowOrColumnUniqueness(column)
+	// 	fitness += columnFitness
+	// 	i++
+	// }
 
 	return fitness
 }
 
-func calculateRowOrColumnUniqueness(row []uint8) float64 {
+func calculateRowOrColumnUniqueness(row [9]uint8) float64 {
 	// Create a map to count occurrences of each number
 	counts := make(map[uint8]int)
 

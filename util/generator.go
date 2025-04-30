@@ -12,7 +12,7 @@ func GenerateRandomIndividual() model.Individual {
 	individual := model.Individual{
 		ID:         uuid.New(), // This should be generated dynamically
 		Name:       "John Doe",
-		Chromosome: GenerateRandomChromosome(), // Assuming a 9x9 Sudoku grid flattened to a single slice
+		Chromosome: model.Chromosome{GenerateRandomChromosome()},
 		Fitness:    0.0,
 	}
 
@@ -40,14 +40,14 @@ func GenerateInitialPopulation(size int) model.Population {
 	return population
 }
 
-func GenerateRandomChromosome() []uint8 {
+func GenerateRandomChromosome() [9][9]uint8 {
 	// Generate a random chromosome for an individual
-	chromosome := make([]uint8, 81) // Assuming a 9x9 Sudoku grid flattened to a single slice
+	var chromosome [9][9]uint8
 
 	for i := 0; i < len(chromosome); i++ {
-		chromosome[i] = uint8(rand.Uint32()) % 10 // Random number between 0 and 9
-		// Note: This is a simple random number generation for demonstration purposes
-		// You can also use a more sophisticated method to generate valid Sudoku numbers
+		for j := 0; j < len(chromosome[i]); j++ {
+			chromosome[i][j] = uint8(rand.Uint32()) % 10 // Random number between 0 and 9
+		}
 	}
 
 	return chromosome
