@@ -46,7 +46,7 @@ func GenerateRandomChromosome() [9][9]uint8 {
 
 	for i := 0; i < len(chromosome); i++ {
 		for j := 0; j < len(chromosome[i]); j++ {
-			chromosome[i][j] = uint8(rand.Uint32()) % 10 // Random number between 0 and 9
+			chromosome[i][j] = (uint8(rand.Uint32()) % 9) + 1 // Random number between 1 and 9
 		}
 	}
 

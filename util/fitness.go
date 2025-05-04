@@ -4,10 +4,10 @@ import (
 	"ndasbulous/geneticsudoku/model"
 )
 
-func CalculateFitness(individual model.Individual) float64 {
+func CalculateFitness(individual model.Individual) uint8 {
 	// Calculate the fitness of the individual based on the Sudoku rules
 	// This is a placeholder implementation; you should replace it with actual logic
-	fitness := 0.0
+	fitness := uint8(0)
 
 	// Example: Count the number of unique numbers in the individual's chromosome
 	i := 0
@@ -39,39 +39,24 @@ func CalculateFitness(individual model.Individual) float64 {
 	return fitness
 }
 
-func calculateRowOrColumnUniqueness(row [9]uint8) float64 {
+func calculateRowOrColumnUniqueness(row [9]uint8) uint8 {
 	// Create a map to count occurrences of each number
 	counts := make(map[uint8]int)
 
 	// Count occurrences of each non-zero number
-	nonZeroCount := 0
 	for _, num := range row {
 		if num != 0 {
 			counts[num]++
-			nonZeroCount++
 		}
 	}
 
 	// Calculate number of duplicate entries
-	duplicateCount := 0
+	duplicateCount := uint8(0)
 	for _, count := range counts {
 		if count > 1 {
-			duplicateCount += (count - 1)
+			duplicateCount += uint8(count - 1)
 		}
 	}
 
-	// If there are no non-zero numbers, return 0
-	if nonZeroCount == 0 {
-		return 0
-	}
-
-	// Calculate score: 1 - (duplicates / non-zero numbers)
-	score := 1.0 - (float64(duplicateCount) / float64(nonZeroCount))
-
-	// Ensure score stays between 0 and 1
-	if score < 0 {
-		return 0
-	}
-
-	return score
+	return duplicateCount
 }
