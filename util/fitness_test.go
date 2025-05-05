@@ -48,10 +48,18 @@ func TestCalculateRowOrColumnUniqueness(t *testing.T) {
 			testData:       [9]uint8{1, 8, 3, 3, 5, 8, 7, 8, 9},
 			expectedResult: 3,
 		},
+		{
+			testData:       [9]uint8{1, 2, 3, 4, 3, 3, 7, 3, 3},
+			expectedResult: 4,
+		},
+		{
+			testData:       [9]uint8{7, 7, 7, 7, 7, 7, 7, 7, 7},
+			expectedResult: 8,
+		},
 	}
 
 	for _, scenario := range scenarioList {
-		actual := calculateRowOrColumnUniqueness(scenario.testData)
+		actual := calculateArrayUniqueness(scenario.testData[0:len(scenario.testData)])
 		if scenario.expectedResult != actual {
 			t.Errorf(`Expected fitness value doesn't match: Expected %v, Actual %v, testData %v`,
 				scenario.expectedResult, actual, scenario.testData)
