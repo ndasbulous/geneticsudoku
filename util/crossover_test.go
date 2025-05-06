@@ -1,0 +1,129 @@
+package util
+
+import (
+	"ndasbulous/geneticsudoku/constant"
+	"testing"
+)
+
+type testCrossoverData struct {
+	parentA         [9][9]uint8
+	parentB         [9][9]uint8
+	crossoverMethod string
+	crossoverPoint  uint8
+	expectedChildX  [9][9]uint8
+	expectedChildY  [9][9]uint8
+}
+
+// Test CrossoverTwoChromosomes
+func TestCrossoverTwoChromosomes(t *testing.T) {
+	scenarioList := []testCrossoverData{
+		{
+			parentA: [9][9]uint8{
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+			},
+			parentB: [9][9]uint8{
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+			},
+			crossoverMethod: constant.CROSSOVER_METHOD_ROW,
+			crossoverPoint:  1,
+			expectedChildX: [9][9]uint8{
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+			},
+			expectedChildY: [9][9]uint8{
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+			},
+		},
+		{
+			parentA: [9][9]uint8{
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+			},
+			parentB: [9][9]uint8{
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+			},
+			crossoverMethod: constant.CROSSOVER_METHOD_ROW,
+			crossoverPoint:  2,
+			expectedChildX: [9][9]uint8{
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+			},
+			expectedChildY: [9][9]uint8{
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{1, 1, 1, 1, 1, 1, 1, 1, 1},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+				{0, 0, 0, 0, 0, 0, 0, 0, 0},
+			},
+		},
+	}
+
+	for _, scenario := range scenarioList {
+		childX, childY := crossoverTwoChromosomes(
+			scenario.parentA,
+			scenario.parentB,
+			scenario.crossoverMethod,
+			scenario.crossoverPoint)
+		if (scenario.expectedChildX != childX) || (scenario.expectedChildY != childY) {
+			t.Errorf(`Expected crossover results don't match: Expected Child X %v, Actual Child X %v, Expected Child Y %v, Actual Child Y %v`,
+				scenario.expectedChildX, childX, scenario.expectedChildY, childY)
+		}
+	}
+}
