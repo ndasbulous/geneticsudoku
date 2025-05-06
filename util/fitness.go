@@ -41,7 +41,8 @@ func CalculateFitness(individual model.Individual) uint8 {
 		i++
 	}
 
-	i = 0
+	// Add fitness calculation for all the sections
+	overallFitness += calculateSectionUniqueness(individual.Chromosome.Sequence)
 
 	return overallFitness
 }
@@ -66,4 +67,118 @@ func calculateArrayUniqueness(row []uint8) uint8 {
 	}
 
 	return duplicateCount
+}
+
+func calculateSectionUniqueness(wholeBoard [9][9]uint8) uint8 {
+	fitness := uint8(0)
+
+	fitness += calculateArrayUniqueness([]uint8{
+		wholeBoard[0][0],
+		wholeBoard[0][1],
+		wholeBoard[0][2],
+		wholeBoard[1][0],
+		wholeBoard[1][1],
+		wholeBoard[1][2],
+		wholeBoard[2][0],
+		wholeBoard[2][1],
+		wholeBoard[2][2],
+	})
+
+	fitness += calculateArrayUniqueness([]uint8{
+		wholeBoard[0][3],
+		wholeBoard[0][4],
+		wholeBoard[0][5],
+		wholeBoard[1][3],
+		wholeBoard[1][4],
+		wholeBoard[1][5],
+		wholeBoard[2][3],
+		wholeBoard[2][4],
+		wholeBoard[2][5],
+	})
+
+	fitness += calculateArrayUniqueness([]uint8{
+		wholeBoard[0][6],
+		wholeBoard[0][7],
+		wholeBoard[0][8],
+		wholeBoard[1][6],
+		wholeBoard[1][7],
+		wholeBoard[1][8],
+		wholeBoard[2][6],
+		wholeBoard[2][7],
+		wholeBoard[2][8],
+	})
+
+	fitness += calculateArrayUniqueness([]uint8{
+		wholeBoard[3][0],
+		wholeBoard[3][1],
+		wholeBoard[3][2],
+		wholeBoard[4][0],
+		wholeBoard[4][1],
+		wholeBoard[4][2],
+		wholeBoard[5][0],
+		wholeBoard[5][1],
+		wholeBoard[5][2],
+	})
+
+	fitness += calculateArrayUniqueness([]uint8{
+		wholeBoard[3][3],
+		wholeBoard[3][4],
+		wholeBoard[3][5],
+		wholeBoard[4][3],
+		wholeBoard[4][4],
+		wholeBoard[4][5],
+		wholeBoard[5][3],
+		wholeBoard[5][4],
+		wholeBoard[5][5],
+	})
+
+	fitness += calculateArrayUniqueness([]uint8{
+		wholeBoard[3][6],
+		wholeBoard[3][7],
+		wholeBoard[3][8],
+		wholeBoard[4][6],
+		wholeBoard[4][7],
+		wholeBoard[4][8],
+		wholeBoard[5][6],
+		wholeBoard[5][7],
+		wholeBoard[5][8],
+	})
+
+	fitness += calculateArrayUniqueness([]uint8{
+		wholeBoard[6][0],
+		wholeBoard[6][1],
+		wholeBoard[6][2],
+		wholeBoard[7][0],
+		wholeBoard[7][1],
+		wholeBoard[7][2],
+		wholeBoard[8][0],
+		wholeBoard[8][1],
+		wholeBoard[8][2],
+	})
+
+	fitness += calculateArrayUniqueness([]uint8{
+		wholeBoard[6][3],
+		wholeBoard[6][4],
+		wholeBoard[6][5],
+		wholeBoard[7][3],
+		wholeBoard[7][4],
+		wholeBoard[7][5],
+		wholeBoard[8][3],
+		wholeBoard[8][4],
+		wholeBoard[8][5],
+	})
+
+	fitness += calculateArrayUniqueness([]uint8{
+		wholeBoard[6][6],
+		wholeBoard[6][7],
+		wholeBoard[6][8],
+		wholeBoard[7][6],
+		wholeBoard[7][7],
+		wholeBoard[7][8],
+		wholeBoard[8][6],
+		wholeBoard[8][7],
+		wholeBoard[8][8],
+	})
+
+	return fitness
 }
