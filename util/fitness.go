@@ -42,7 +42,7 @@ func CalculateFitness(individual model.Individual) uint8 {
 	}
 
 	// Add fitness calculation for all the sections
-	// overallFitness += calculateSectionUniqueness(individual.Chromosome.Sequence)
+	overallFitness += calculateSectionUniqueness(individual.Chromosome.Sequence)
 
 	return overallFitness
 }
