@@ -52,3 +52,19 @@ func GenerateRandomChromosome() [9][9]uint8 {
 
 	return chromosome
 }
+
+func GenerateRandomChromosomeWithPredefinedValues(predefinedValues [9][9]uint8) [9][9]uint8 {
+	// Generate a random chromosome for an individual
+	var chromosome [9][9]uint8
+
+	for i := 0; i < len(chromosome); i++ {
+		for j := 0; j < len(chromosome[i]); j++ {
+			if predefinedValues[i][j] == 0 {
+				// Generate random number if cell is not defined
+				chromosome[i][j] = (uint8(rand.Uint32()) % 9) + 1 // Random number between 1 and 9
+			}
+		}
+	}
+
+	return chromosome
+}
