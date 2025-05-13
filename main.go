@@ -32,7 +32,7 @@ func runGenerationsWithPredefinedValues() {
 		individual := model.Individual{
 			ID:         uuid.New(), // This should be generated dynamically
 			Name:       "John Doe",
-			Chromosome: model.Chromosome{util.GenerateRandomChromosomeWithPredefinedValues(predefinedValues)},
+			Chromosome: model.Chromosome{Sequence: util.GenerateRandomChromosomeWithPredefinedValues(predefinedValues)},
 			Fitness:    0,
 		}
 		individual.Fitness = util.CalculateFitness(individual)

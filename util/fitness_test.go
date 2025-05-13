@@ -152,7 +152,7 @@ func TestCalculateFitness(t *testing.T) {
 		individualToTest := model.Individual{
 			ID:         uuid.New(), // This should be generated dynamically
 			Name:       "John Doe",
-			Chromosome: model.Chromosome{scenario.testData},
+			Chromosome: model.Chromosome{Sequence: scenario.testData},
 			Fitness:    0,
 		}
 

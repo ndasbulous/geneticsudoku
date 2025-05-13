@@ -12,7 +12,7 @@ func GenerateRandomIndividual() model.Individual {
 	individual := model.Individual{
 		ID:         uuid.New(), // This should be generated dynamically
 		Name:       "John Doe",
-		Chromosome: model.Chromosome{GenerateRandomChromosome()},
+		Chromosome: model.Chromosome{Sequence: GenerateRandomChromosome()},
 		Fitness:    0,
 	}
 
