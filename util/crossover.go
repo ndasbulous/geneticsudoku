@@ -10,10 +10,8 @@ func crossoverTwoChromosomes(individualA, individualB [9][9]uint8, crossoverMeth
 		childX, childY = crossoverByRow(individualA, individualB, crossoverPoint)
 	} else if crossoverMethod == constant.CROSSOVER_METHOD_COLUMN {
 		childX, childY = crossoverByColumn(individualA, individualB, crossoverPoint)
-		// } else if crossoverMethod == constant.CROSSOVER_METHOD_SECTION {
-		// 	childX, childY = crossoverBySection(individualA, individualB, crossoverPoint)
 	} else {
-		panic("Invalid crossover method")
+		childX, childY = crossoverBySections(individualA, individualB, crossoverPoint)
 	}
 
 	return childX, childY
@@ -114,34 +112,35 @@ func crossoverByColumn(individualA, individualB [9][9]uint8, crossoverPoint uint
 	childY := individualB
 
 	// Do crossover on Row on crossover point
-	if crossoverPoint == 1 {
+	switch crossoverPoint {
+	case 1:
 		childX, childY = switchGeneByColumn(0, individualA, individualB)
-	} else if crossoverPoint == 2 {
+	case 2:
 		childX, childY = switchGeneByColumn(0, individualA, individualB)
 		childX, childY = switchGeneByColumn(1, childX, childY)
-	} else if crossoverPoint == 3 {
+	case 3:
 		childX, childY = switchGeneByColumn(0, individualA, individualB)
 		childX, childY = switchGeneByColumn(1, childX, childY)
 		childX, childY = switchGeneByColumn(2, childX, childY)
-	} else if crossoverPoint == 4 {
+	case 4:
 		childX, childY = switchGeneByColumn(0, individualA, individualB)
 		childX, childY = switchGeneByColumn(1, childX, childY)
 		childX, childY = switchGeneByColumn(2, childX, childY)
 		childX, childY = switchGeneByColumn(3, childX, childY)
-	} else if crossoverPoint == 5 {
+	case 5:
 		childX, childY = switchGeneByColumn(0, individualA, individualB)
 		childX, childY = switchGeneByColumn(1, childX, childY)
 		childX, childY = switchGeneByColumn(2, childX, childY)
 		childX, childY = switchGeneByColumn(3, childX, childY)
 		childX, childY = switchGeneByColumn(4, childX, childY)
-	} else if crossoverPoint == 6 {
+	case 6:
 		childX, childY = switchGeneByColumn(0, individualA, individualB)
 		childX, childY = switchGeneByColumn(1, childX, childY)
 		childX, childY = switchGeneByColumn(2, childX, childY)
 		childX, childY = switchGeneByColumn(3, childX, childY)
 		childX, childY = switchGeneByColumn(4, childX, childY)
 		childX, childY = switchGeneByColumn(5, childX, childY)
-	} else if crossoverPoint == 7 {
+	case 7:
 		childX, childY = switchGeneByColumn(0, individualA, individualB)
 		childX, childY = switchGeneByColumn(1, childX, childY)
 		childX, childY = switchGeneByColumn(2, childX, childY)
@@ -149,7 +148,7 @@ func crossoverByColumn(individualA, individualB [9][9]uint8, crossoverPoint uint
 		childX, childY = switchGeneByColumn(4, childX, childY)
 		childX, childY = switchGeneByColumn(5, childX, childY)
 		childX, childY = switchGeneByColumn(6, childX, childY)
-	} else if crossoverPoint == 8 {
+	case 8:
 		childX, childY = switchGeneByColumn(0, individualA, individualB)
 		childX, childY = switchGeneByColumn(1, childX, childY)
 		childX, childY = switchGeneByColumn(2, childX, childY)
@@ -163,6 +162,61 @@ func crossoverByColumn(individualA, individualB [9][9]uint8, crossoverPoint uint
 	return childX, childY
 }
 
+func crossoverBySections(individualA, individualB [9][9]uint8, crossoverPoint uint8) ([9][9]uint8, [9][9]uint8) {
+	childX := individualA
+	childY := individualB
+
+	// Do crossover on Row on crossover point
+	switch crossoverPoint {
+	case 1:
+		childX, childY = switchGeneBySection(0, individualA, individualB)
+	case 2:
+		childX, childY = switchGeneBySection(0, individualA, individualB)
+		childX, childY = switchGeneBySection(1, childX, childY)
+	case 3:
+		childX, childY = switchGeneBySection(0, individualA, individualB)
+		childX, childY = switchGeneBySection(1, childX, childY)
+		childX, childY = switchGeneBySection(2, childX, childY)
+	case 4:
+		childX, childY = switchGeneBySection(0, individualA, individualB)
+		childX, childY = switchGeneBySection(1, childX, childY)
+		childX, childY = switchGeneBySection(2, childX, childY)
+		childX, childY = switchGeneBySection(3, childX, childY)
+	case 5:
+		childX, childY = switchGeneBySection(0, individualA, individualB)
+		childX, childY = switchGeneBySection(1, childX, childY)
+		childX, childY = switchGeneBySection(2, childX, childY)
+		childX, childY = switchGeneBySection(3, childX, childY)
+		childX, childY = switchGeneBySection(4, childX, childY)
+	case 6:
+		childX, childY = switchGeneBySection(0, individualA, individualB)
+		childX, childY = switchGeneBySection(1, childX, childY)
+		childX, childY = switchGeneBySection(2, childX, childY)
+		childX, childY = switchGeneBySection(3, childX, childY)
+		childX, childY = switchGeneBySection(4, childX, childY)
+		childX, childY = switchGeneBySection(5, childX, childY)
+	case 7:
+		childX, childY = switchGeneBySection(0, individualA, individualB)
+		childX, childY = switchGeneBySection(1, childX, childY)
+		childX, childY = switchGeneBySection(2, childX, childY)
+		childX, childY = switchGeneBySection(3, childX, childY)
+		childX, childY = switchGeneBySection(4, childX, childY)
+		childX, childY = switchGeneBySection(5, childX, childY)
+		childX, childY = switchGeneBySection(6, childX, childY)
+	case 8:
+		childX, childY = switchGeneBySection(0, individualA, individualB)
+		childX, childY = switchGeneBySection(1, childX, childY)
+		childX, childY = switchGeneBySection(2, childX, childY)
+		childX, childY = switchGeneBySection(3, childX, childY)
+		childX, childY = switchGeneBySection(4, childX, childY)
+		childX, childY = switchGeneBySection(5, childX, childY)
+		childX, childY = switchGeneBySection(6, childX, childY)
+		childX, childY = switchGeneBySection(7, childX, childY)
+	}
+
+	return childX, childY
+}
+
 func switchGeneByColumn(column uint8, individualA, individualB [9][9]uint8) ([9][9]uint8, [9][9]uint8) {
 	childX := individualA
 	childY := individualB
@@ -170,6 +224,25 @@ func switchGeneByColumn(column uint8, individualA, individualB [9][9]uint8) ([9]
 	for i := 0; i < 9; i++ {
 		childX[i][column] = individualB[i][column]
 		childY[i][column] = individualA[i][column]
+	}
+
+	return childX, childY
+}
+
+func switchGeneBySection(section uint8, individualA, individualB [9][9]uint8) ([9][9]uint8, [9][9]uint8) {
+	childX := individualA
+	childY := individualB
+
+	// Calculate starting row and column for the section
+	startRow := (section / 3) * 3
+	startCol := (section % 3) * 3
+
+	// Switch the 3x3 section between the two individuals
+	for i := startRow; i < startRow+3; i++ {
+		for j := startCol; j < startCol+3; j++ {
+			childX[i][j] = individualB[i][j]
+			childY[i][j] = individualA[i][j]
+		}
 	}
 
 	return childX, childY
