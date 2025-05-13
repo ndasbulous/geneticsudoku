@@ -2,7 +2,7 @@ package util
 
 import "ndasbulous/geneticsudoku/constant"
 
-func crossoverTwoChromosomes(individualA, individualB [9][9]uint8, crossoverMethod string, crossoverPoint uint8) ([9][9]uint8, [9][9]uint8) {
+func CrossoverTwoChromosomes(individualA, individualB [9][9]uint8, crossoverMethod string, crossoverPoint uint8) ([9][9]uint8, [9][9]uint8) {
 	childX := individualA
 	childY := individualB
 

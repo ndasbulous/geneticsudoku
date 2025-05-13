@@ -404,7 +404,7 @@ func TestCrossoverByRows(t *testing.T) {
 	}
 
 	for _, scenario := range scenarioList {
-		childX, childY := crossoverTwoChromosomes(
+		childX, childY := CrossoverTwoChromosomes(
 			scenario.parentA,
 			scenario.parentB,
 			scenario.crossoverMethod,
@@ -805,7 +805,7 @@ func TestCrossoverByColumns(t *testing.T) {
 	}
 
 	for _, scenario := range scenarioList {
-		childX, childY := crossoverTwoChromosomes(
+		childX, childY := CrossoverTwoChromosomes(
 			scenario.parentA,
 			scenario.parentB,
 			scenario.crossoverMethod,
@@ -1206,7 +1206,7 @@ func TestCrossoverBySections(t *testing.T) {
 	}
 
 	for _, scenario := range scenarioList {
-		childX, childY := crossoverTwoChromosomes(
+		childX, childY := CrossoverTwoChromosomes(
 			scenario.parentA,
 			scenario.parentB,
 			scenario.crossoverMethod,
