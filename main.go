@@ -14,7 +14,7 @@ import (
 
 func init() {
 	// Initialize random seed
-	rand.Seed(time.Now().UnixNano())
+	rand.New(rand.NewSource(time.Now().UnixNano()))
 }
 
 func main() {
@@ -59,17 +59,19 @@ func runGenerationsWithPredefinedValues() {
 		return population[i].Fitness < population[j].Fitness
 	})
 
+	newIndividuals := []model.Individual{}
+
+	var currentGeneration int = 1
 	for population[0].Fitness != 0 {
-		fmt.Printf("Best fitness: %f\n", float64(population[0].Fitness))
-		// fmt.Printf("Best individual: %v\n", population[0].Chromosome.Sequence)
-		// fmt.Printf("Average fitness: %f\n", float64(population[populationSize/2].Fitness))
-		// fmt.Printf("Total fitness: %f\n", float64(population[populationSize-1].Fitness))
+		fmt.Printf("Current Generation: %d, Best fitness: %d\n", currentGeneration, population[0].Fitness)
 
 		// Do crossover
-		for i := 0; i < populationSize/2; i++ {
+		for i := 0; i < populationSize; i++ {
 			// Crossover between two parents
 			parent1 := population[i]
-			parent2 := population[populationSize-i-1]
+			// Choose one random individual from the population, not the same as parent1
+			// Ensure parent2 is not the same as parent1
+			parent2 := population[(uint(rand.Uint32()) % populationSize)]
 
 			childChromosome1, childChromosome2 := util.CrossoverTwoChromosomes(
 				parent1.Chromosome.Sequence,
@@ -96,12 +98,38 @@ func runGenerationsWithPredefinedValues() {
 			child2.Fitness = util.CalculateFitness(child2)
 
 			// Add the children to the population
-			population[i] = child1
-			population[populationSize-i-1] = child2
-
-			sort.Slice(population[:], func(i, j int) bool {
-				return population[i].Fitness < population[j].Fitness
-			})
+			newIndividuals = append(newIndividuals, child1)
+			newIndividuals = append(newIndividuals, child2)
 		}
+
+		// Sort new individuals by fitness
+		sort.Slice(newIndividuals[:], func(i, j int) bool {
+			return newIndividuals[i].Fitness < newIndividuals[j].Fitness
+		})
+
+		// Replace the worst individuals in the population with the new individuals
+		for i := 0; i < populationSize/2; i++ {
+			population[populationSize-1-i] = newIndividuals[i]
+		}
+
+		// Sort the population again
+		sort.Slice(population[:], func(i, j int) bool {
+			return population[i].Fitness < population[j].Fitness
+		})
+
+		// Clear the new individuals slice for the next generation
+		newIndividuals = []model.Individual{}
+
+		// Increment the generation count
+		currentGeneration++
+	}
+
+	fmt.Printf("Best individual:\n")
+	// Print individual in matrix format
+	for i := 0; i < len(population[0].Chromosome.Sequence); i++ {
+		for j := 0; j < len(population[0].Chromosome.Sequence[i]); j++ {
+			fmt.Printf("%d ", population[0].Chromosome.Sequence[i][j])
+		}
+		fmt.Println()
 	}
 }

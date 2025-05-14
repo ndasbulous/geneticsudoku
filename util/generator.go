@@ -62,6 +62,9 @@ func GenerateRandomChromosomeWithPredefinedValues(predefinedValues [9][9]uint8) 
 			if predefinedValues[i][j] == 0 {
 				// Generate random number if cell is not defined
 				chromosome[i][j] = (uint8(rand.Uint32()) % 9) + 1 // Random number between 1 and 9
+			} else {
+				// Put the predefined value
+				chromosome[i][j] = predefinedValues[i][j]
 			}
 		}
 	}
